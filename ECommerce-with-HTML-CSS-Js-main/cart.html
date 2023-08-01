@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script src="components/footer.js" type="text/javascript" defer></script>
+    <script src="components/header.js" type="text/javascript" defer></script>
+    <script src="components/newsletter.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <header-component></header-component>
+
+    <section id="page-header" class="about-header">
+      <h2>#cart</h2>
+      <p>Add your coupon code & SAVE upto 80%!</p>
+    </section>
+
+    <section id="cart" class="section-p1">
+      <table width="100%">
+        <thead>
+          <td>IMAGE</td>
+          <td>PRODUCT</td>
+          <td>PRICE</td>
+          <td>QUANTITY</td>
+          <td>SUBTOTAL</td>
+          <td>REMOVE</td>
+        </thead>
+        <tbody class="table_body">
+          <tr class="table_row">
+            <td><img src="img/products/f1.jpg" alt="" /></td>
+            <td>Cartoon Astronaut T-Shirts</td>
+            <td class="price">$100</td>
+            <td><input type="number" value="3" class="quantity" min="1" /></td>
+            <td class="subtotal"></td>
+            <td class="remove">
+              <a href="#"><i class="fas fa-times-circle"></i></a>
+            </td>
+          </tr>
+          <tr class="table_row">
+            <td><img src="img/products/f2.jpg" alt="" /></td>
+            <td>Cartoon Astronaut T-Shirts</td>
+            <td class="price">$150</td>
+            <td><input type="number" value="2" class="quantity" min="1" /></td>
+            <td class="subtotal"></td>
+            <td class="remove">
+              <a href="#"><i class="fas fa-times-circle"></i></a>
+            </td>
+          </tr>
+          <tr class="table_row">
+            <td><img src="img/products/n7.jpg" alt="" /></td>
+            <td>ULTRA ULTIMATE Unisex Football Boots</td>
+            <td class="price">$300</td>
+            <td><input type="number" value="6" class="quantity" min="1" /></td>
+            <td class="subtotal"></td>
+            <td class="remove">
+              <a href="#"><i class="fas fa-times-circle"></i></a>
+            </td>
+          </tr>
+          <tr class="table_row">
+            <td><img src="img/products/n1.jpg" alt="" /></td>
+            <td>Apple iphone 14 ProMax</td>
+            <td class="price">$20000</td>
+            <td><input type="number" value="1" class="quantity" min="1" /></td>
+            <td class="subtotal"></td>
+            <td class="remove">
+              <a href="#"><i class="fas fa-times-circle"></i></a>
+            </td>
+          </tr>
+          <tr class="table_row">
+            <td><img src="img/products/n3.jpg" alt="" /></td>
+            <td>AMUMIU 14mm Width Stainless Steel Gold Hand Chain</td>
+            <td class="price">$1000</td>
+            <td><input type="number" value="4" class="quantity" min="1" /></td>
+            <td class="subtotal"></td>
+            <td class="remove">
+              <a href="#"><i class="fas fa-times-circle"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="cart-add" class="section-p1">
+      <div id="coupon">
+        <h3>Apply Coupon</h3>
+        <div>
+          <input type="text" placeholder="Enter Your Coupon" />
+          <button class="normal">Apply</button>
+        </div>
+      </div>
+
+      <div id="subtotal">
+        <h3>Cart Totals</h3>
+        <table>
+          <tr>
+            <td>Cart Subtotals</td>
+            <td class="cart_subtotal">0</td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong class="total">0</strong></td>
+          </tr>
+        </table>
+        <button class="normal">Proceed to checkout</button>
+      </div>
+    </section>
+
+    <footer-component></footer-component>
+    <script>
+      const rows = document.querySelectorAll(".table_row");
+      if (rows) {
+        rows.forEach((row) => {
+        const price = row.querySelector(".price").textContent.split("$").pop();
+        const quantity = row.querySelector(".quantity");
+        const subtotal = row.querySelector(".subtotal");
+        subtotal.innerText = `$${(price * quantity.value).toFixed(2)}`;
+        updateCartTotal();
+        quantity.addEventListener("change", () => {
+          subtotal.innerText = `$${(price * quantity.value).toFixed(2)}`;
+          updateCartTotal();
+        });
+        const remove = row.querySelector(".remove");
+        remove.addEventListener("click", () => {
+          row.remove();
+          updateCartTotal();
+        });
+      });
+      }
+      function updateCartTotal() {
+        const subtotals = document.querySelectorAll(".subtotal");
+        let total = 0;
+        subtotals.forEach((subtotal) => {
+          total += Number(subtotal.innerText.split("$").pop());
+        });
+        const cartSubtotal = document.querySelector(".cart_subtotal");
+        cartSubtotal.innerText = `$${total.toFixed(2)}`;
+        const grandTotal = document.querySelector(".total");
+        grandTotal.innerText = `$${total.toFixed(2)}`;
+      }
+    </script>
+
+    <script src="script.js" async defer></script>
+  </body>
+</html>
